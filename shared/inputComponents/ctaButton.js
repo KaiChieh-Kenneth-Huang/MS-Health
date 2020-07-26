@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#eee',
-        fontSize: 20,
+        fontSize: 16,
         textAlign: 'center',
         fontFamily: 'roboto-regular',
     }

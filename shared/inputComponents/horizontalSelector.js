@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     buttonText: {
-        fontSize: 20,
+        fontSize: 16,
         textAlign: 'center',
         fontFamily: 'roboto-regular',
     }

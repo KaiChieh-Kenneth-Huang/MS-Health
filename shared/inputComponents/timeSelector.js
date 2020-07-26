@@ -42,7 +42,7 @@ export default function TimeSelector({style, time, setTime}) {
         } else {
             return null;
         }
-    };
+    }
  
     const checkNum = (input, max) => {
         let num = parseInt(input, 10);
@@ -97,7 +97,14 @@ export default function TimeSelector({style, time, setTime}) {
             <View style={styles.container}>
                 <TextInput
                     style={ [styles.userInput, globalStyles.contentText] }
-                    onChangeText={text => setHr(text)}
+                    selectTextOnFocus={true}
+                    onChangeText={text => {
+                        if (!text) {
+                            setHr('');
+                        } else if (checkNum(text, 12)) {
+                            setHr(parseInt(text, 10).toString(10));
+                        }
+                    }}
                     onEndEditing={() => {
                         if(checkNum(hr, 12)){
                             let newHr = getStr(hr, 12);
@@ -121,7 +128,13 @@ export default function TimeSelector({style, time, setTime}) {
                 <Text style={ [globalStyles.contentText, styles.colon] }>:</Text>
                 <TextInput
                     style={ [styles.userInput, globalStyles.contentText] }
-                    onChangeText={text => setMin(text)}
+                    onChangeText={text => {
+                        if (!text) {
+                            setMin('');
+                        } else if (checkNum(text, 59)) {
+                            setMin(parseInt(text, 10).toString(10));
+                        }
+                    }}
                     onEndEditing={() => {
                         if(checkNum(min, 59)){
                             let newMin = getStr(min, 59);

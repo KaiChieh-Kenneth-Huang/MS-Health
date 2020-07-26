@@ -55,10 +55,6 @@ export default function ReportsHome({ navigation }){
                                 '#00de06','#87d7da','#8cbecd','#60a9c9','#3194c7','#007dc3','#0064bc','#0049af',
                                 '#6663b7','#9581bf','#b8a3ca','#d4c8d7','#c7a3c8','#be7cb3','#b75099','#af007a'
                                 ];
-    const sliceColor1 = ['#f00','#fcba03','#f4fc03', '#0f0', '#00f'];
-    const sliceColor2 = ['#000','#555','#888', '#aaa', '#ccc'];
-    let segments1 = [50, 30, 20];
-    let segments2= [30, 10, 10, 10, 10, 10, 5, 10, 5];
 
     const strToTimeInterval = (str) => {
         switch(str) {

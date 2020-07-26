@@ -101,6 +101,12 @@ export default function ValueSelector({style, highValueText, lowValueText, lowVa
     const interval = (sliderWidth - 50) / (highValue - lowValue);
     let numbers = [];
 
+    const restrainSlider = (pos) => {
+        if (pos < 0) return 0;
+        else if (pos > sliderWidth - 50) return sliderWidth - 50;
+        else return pos;
+    }
+
     setValue(selectedValue);
 
     if(sliderWidth !== 0 && interval > 5){ // don't generate the numbers if they will be too cramped
@@ -136,18 +142,21 @@ export default function ValueSelector({style, highValueText, lowValueText, lowVa
             <View 
                 style={[styles.container, {height: SLIDER_HEIGHT, backgroundColor: 'transparent', position: 'absolute'}]}
                 onTouchStart={(e) => {
-                    setTargetHandlePos(e.nativeEvent.locationX - SLIDER_HEIGHT / 2);
-                    setSelectedValue(Math.round((e.nativeEvent.locationX - SLIDER_HEIGHT / 2) / interval) + lowValue);
+                    const handlePos = restrainSlider(e.nativeEvent.locationX - SLIDER_HEIGHT / 2);
+                    setTargetHandlePos(handlePos);
+                    setSelectedValue(Math.round(handlePos / interval) + lowValue);
                 }}
                 onTouchMove={(e) => {
-                    setTargetHandlePos(e.nativeEvent.locationX - SLIDER_HEIGHT / 2);
+                    const handlePos = restrainSlider(e.nativeEvent.locationX - SLIDER_HEIGHT / 2);
+                    setTargetHandlePos(handlePos);
                     setIsSliding(true);
-                    setSelectedValue(Math.round((e.nativeEvent.locationX - SLIDER_HEIGHT / 2) / interval) + lowValue);
+                    setSelectedValue(Math.round(handlePos / interval) + lowValue);
                 }}
                 onTouchEnd={(e) => {
+                    const handlePos = restrainSlider(e.nativeEvent.locationX - SLIDER_HEIGHT / 2);
                     setIsSliding(false);
-                    setTargetHandlePos(Math.round((e.nativeEvent.locationX - SLIDER_HEIGHT / 2) / interval) * interval);
-                    setSelectedValue(Math.round((e.nativeEvent.locationX - SLIDER_HEIGHT / 2) / interval) + lowValue);
+                    setTargetHandlePos(Math.round(handlePos / interval) * interval);
+                    setSelectedValue(Math.round(handlePos / interval) + lowValue);
                 }}
                 onLayout={(event) => {
                     let {x, y, width, height} = event.nativeEvent.layout;
